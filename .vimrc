@@ -31,8 +31,10 @@ Plugin 'python-mode/python-mode'
 " Vim Surround
 Plugin 'tpope/vim-surround'
 
-" AutoClose Plugin
-Plugin 'Townk/vim-autoclose'
+" delimitMate AutoClose
+Plugin 'Raimondi/delimitMate'
+" AutoClose Plugin (Doesn't function how I'd like)
+" Plugin 'Townk/vim-autoclose'
 
 " Indent Guides
 Plugin 'nathanaelkane/vim-indent-guides'
@@ -42,6 +44,7 @@ Plugin 'Shougo/neocomplete.vim'
 
 " NeoSnippet
 Plugin 'Shougo/neosnippet.vim'
+Plugin 'Shougo/neosnippet-snippets'
 
 " PHP editing support PIV
 " Plugin 'spf13/PIV'
@@ -83,9 +86,11 @@ Plugin 'Lokaltog/vim-distinguished'
 
 " Fugitive Git
 Plugin 'tpope/vim-fugitive'
+" Rhubarb for github integration
+Plugin 'tpope/vim-rhubarb'
 
 " DevIcons
-Plugin 'ryanoasis/vim-devicons'
+" Plugin 'ryanoasis/vim-devicons'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -152,6 +157,8 @@ call togglebg#map("<F5>")
 " Remap esc to caps lock
 map <CAPS> <C-[><CR>
 
+" Quit if accidental :Q
+:command! -bar -bang Q quit<bang>
 " Change leader
 let mapleader = ","
 
@@ -217,6 +224,9 @@ noremap <Up> <Nop>
 noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
+
+" Set !python3 currentfile to <leader><leader>r
+noremap <leader><leader>r :w<CR>:!python3 %:p<CR>
 
 " NeoComplete and NeoSnippet Configs{{{
 "Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
@@ -309,3 +319,9 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif"}}}
+
+" Command to open a new tab with filtype py
+nnoremap <leader>1 :tab new<CR>:setfiletype python<CR>
+
+" Set ,o to insert new line then exit back to normal
+nnoremap <leader>o :a<CR><CR>.<CR>k
